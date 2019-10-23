@@ -33,6 +33,9 @@ dependencies:
   # Scratcher
   scratcher: ^1.2.1
 
+  # pin code https://github.com/LiewJunTung/pin_code_text_field
+  pin_code_text_field: ^1.4.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
