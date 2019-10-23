@@ -12,7 +12,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Widgets Demo',
-      theme: ThemeData(scaffoldBackgroundColor: Color.fromRGBO(59, 66, 84, 1), fontFamily: "Verdana"),
+      theme: ThemeData(
+          scaffoldBackgroundColor: Color.fromRGBO(59, 66, 84, 1),
+          fontFamily: "Verdana",
+          appBarTheme: AppBarTheme(elevation: 0, color: Colors.transparent),
+          cardTheme: CardTheme(
+              elevation: 5,
+              color: Color.fromRGBO(84, 93, 110, 1),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ))),
       darkTheme: ThemeData.dark(),
       home: new HomePage(),
     );
@@ -35,11 +44,6 @@ class HomePage extends StatelessWidget {
         body: ListView(padding: EdgeInsets.all(10), children: <Widget>[
           // Wave
           Card(
-              elevation: 5,
-              color: Color.fromRGBO(84, 93, 110, 1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
                 title: Text("Wave", style: TextStyle(color: Colors.white)),
@@ -52,11 +56,6 @@ class HomePage extends StatelessWidget {
 
           // Flip Panel
           Card(
-              elevation: 5,
-              color: Color.fromRGBO(84, 93, 110, 1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
                 title: Text("Flip Panel", style: TextStyle(color: Colors.white)),
@@ -69,11 +68,6 @@ class HomePage extends StatelessWidget {
 
           // Scratcher
           Card(
-              elevation: 5,
-              color: Color.fromRGBO(84, 93, 110, 1),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
                 title: Text("Scratcher", style: TextStyle(color: Colors.white)),
@@ -91,25 +85,25 @@ class ScratcherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Scratcher"), elevation: 0, backgroundColor: Colors.transparent,),
-          body: Center(
-            child: Scratcher(
-            brushSize: 30,
-            threshold: 50,
-            color: Colors.red,
-            onChange: (value) {
-              print("Scratch progress: $value%");
-            },
-            onThreshold: () {
-              print("Threshold reached, you won!");
-            },
-            child: Container(
-              height: 300,
-              width: 300,
-              color: Colors.blue,
-            ),
-      ),
+      appBar: AppBar(title: Text("Scratcher")),
+      body: Center(
+        child: Scratcher(
+          brushSize: 30,
+          threshold: 50,
+          color: Colors.red,
+          onChange: (value) {
+            print("Scratch progress: $value%");
+          },
+          onThreshold: () {
+            print("Threshold reached, you won!");
+          },
+          child: Container(
+            height: 300,
+            width: 300,
+            color: Colors.blue,
           ),
+        ),
+      ),
     );
   }
 }
@@ -120,7 +114,7 @@ class FlipPanelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Flip Panel"), elevation: 0, backgroundColor: Colors.transparent),
+      appBar: AppBar(title: Text("Flip Panel")),
       body: Center(
         child: FlipPanel.builder(
           itemBuilder: (context, index) => Container(
@@ -144,7 +138,7 @@ class WavePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0, title: Text("Detail")),
+        appBar: AppBar(title: Text("Detail")),
         body: Container(
           height: 300,
           child: WaveWidget(
