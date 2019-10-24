@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flip_panel/flip_panel.dart';
 import 'package:flutter/material.dart';
