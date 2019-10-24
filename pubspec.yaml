@@ -36,6 +36,9 @@ dependencies:
   # pin code https://github.com/LiewJunTung/pin_code_text_field
   pin_code_text_field: ^1.4.0
 
+  #Shimmer
+  shimmer: ^1.0.1
+
   # animated refresh indicator
   liquid_pull_to_refresh: ^1.1.1
 
@@ -45,7 +48,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
