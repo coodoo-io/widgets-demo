@@ -10,6 +10,7 @@ import 'package:scratcher/scratcher.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
+import 'package:widgets/color_palette.dart';
 
 void main() => runApp(MyApp());
 
@@ -166,6 +167,38 @@ class _ChartPageState extends State<ChartPage> {
     ),
   ];
 
+  final GlobalKey<AnimatedCircularChartState> _chartKeyRand = new GlobalKey<AnimatedCircularChartState>();
+  final _chartSizeRand = const Size(300.0, 300.0);
+  final Random random = new Random();
+  List<CircularStackEntry> data;
+
+  void _randomize() {
+    setState(() {
+      data = _generateRandomData();
+      _chartKeyRand.currentState.updateData(data);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    data = _generateRandomData();
+  }
+
+  List<CircularStackEntry> _generateRandomData() {
+    int stackCount = random.nextInt(10);
+    List<CircularStackEntry> data = new List.generate(stackCount, (i) {
+      int segCount = random.nextInt(10);
+      List<CircularSegmentEntry> segments = new List.generate(segCount, (j) {
+        Color randomColor = ColorPalette.primary.random(random);
+        return new CircularSegmentEntry(random.nextDouble(), randomColor);
+      });
+      return new CircularStackEntry(segments);
+    });
+
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
     TextStyle _labelStyle = Theme.of(context).textTheme.title.merge(new TextStyle(color: labelColor));
@@ -177,18 +210,27 @@ class _ChartPageState extends State<ChartPage> {
       body: Center(
         child: Column(
           children: <Widget>[
+            // PIE CHART
+            // AnimatedCircularChart(
+            //   key: _chartKey1,
+            //   size: const Size(300.0, 300.0),
+            //   initialChartData: data1,
+            //   chartType: CircularChartType.Pie,
+            // ),
             AnimatedCircularChart(
-              key: _chartKey1,
-              size: const Size(300.0, 300.0),
-              initialChartData: data1,
-              chartType: CircularChartType.Pie,
+              key: _chartKeyRand,
+              size: _chartSizeRand,
+              initialChartData: data,
+              chartType: CircularChartType.Radial,
             ),
             FlatButton(
               child: Text(
-                'refresh',
+                'Refresh',
                 style: TextStyle(color: Colors.white),
               ),
-              onPressed: _cycleSamples,
+              // PIE CHART
+              // onPressed: _cycleSamples,
+              onPressed: _randomize,
             ),
             Container(
               margin: EdgeInsets.only(top: 50),
