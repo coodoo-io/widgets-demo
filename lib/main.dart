@@ -1,5 +1,10 @@
+import 'dart:async';
+import 'dart:math';
+
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flip_panel/flip_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:scratcher/scratcher.dart';
 import 'package:wave/config.dart';
@@ -46,51 +51,168 @@ class HomePage extends StatelessWidget {
           // Wave
           Card(
               child: ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
-                title: Text("Wave", style: TextStyle(color: Colors.white)),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                ),
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => WavePage())),
-              )),
+            contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+            title: Text("Wave", style: TextStyle(color: Colors.white)),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => WavePage())),
+          )),
 
           // Flip Panel
           Card(
               child: ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
-                title: Text("Flip Panel", style: TextStyle(color: Colors.white)),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                ),
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FlipPanelPage())),
-              )),
+            contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+            title: Text("Flip Panel", style: TextStyle(color: Colors.white)),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FlipPanelPage())),
+          )),
 
           // Scratcher
           Card(
               child: ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
-                title: Text("Scratcher", style: TextStyle(color: Colors.white)),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                ),
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ScratcherPage())),
-              )),
+            contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+            title: Text("Scratcher", style: TextStyle(color: Colors.white)),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ScratcherPage())),
+          )),
 
           // Pin Code
           Card(
               child: ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
-                title: Text("Pin Code", style: TextStyle(color: Colors.white)),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.white,
-                ),
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PinPage())),
-              )),
+            contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+            title: Text("Pin Code", style: TextStyle(color: Colors.white)),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PinPage())),
+          )),
+
+          // Liquid Pull To Refresh Indicator
+          Card(
+              child: ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+            title: Text("Liquid Pull To Refresh", style: TextStyle(color: Colors.white)),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LiquidPullToRefreshPage())),
+          )),
+
+          // Bottom Navy Bar
+          Card(
+              child: ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+            title: Text("Bottom Navy Bar", style: TextStyle(color: Colors.white)),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigationPage())),
+          )),
         ]));
+  }
+}
+
+class LiquidPullToRefreshPage extends StatelessWidget {
+  final numbers = [1, 2, 3, 4, 5];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Liquid Pull To Refresh')),
+      body: LiquidPullToRefresh(
+        onRefresh: () => listViewRefresh(),
+        child: ListView.builder(
+          itemCount: 6,
+          itemBuilder: (context, index) {
+            if (index == 5) {
+              return Row(
+                children: <Widget>[
+                  Text(
+                    'Pull me!',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                    size: 30,
+                  )
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              );
+            }
+            return ListTile(
+              title: Text(
+                'Example ${numbers[index]}',
+                style: TextStyle(color: Colors.white),
+              ),
+              leading: Icon(
+                Icons.list,
+                color: Colors.white,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Future<void> listViewRefresh() async {
+    print('refresh triggered');
+    return Future.delayed(Duration(seconds: 4)).then((value) {
+      print('refresh done');
+    });
+  }
+}
+
+class BottomNavigationPage extends StatefulWidget {
+  @override
+  _BottomNavigationPageState createState() => _BottomNavigationPageState();
+}
+
+class _BottomNavigationPageState extends State<BottomNavigationPage> {
+  final PageController _pageController = PageController();
+  num _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Bottom Navy Bar")),
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          Center(child: Text('Home', style: TextStyle(color: Colors.white))),
+          Center(child: Text('Users', style: TextStyle(color: Colors.white))),
+          Center(child: Text('Messages', style: TextStyle(color: Colors.white))),
+          Center(child: Text('Settings', style: TextStyle(color: Colors.white))),
+        ],
+      ),
+      bottomNavigationBar: BottomNavyBar(
+        selectedIndex: _selectedIndex,
+        showElevation: true,
+        onItemSelected: (index) => setState(() {
+          _selectedIndex = index;
+          _pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.ease);
+        }),
+        items: [
+          BottomNavyBarItem(icon: Icon(Icons.apps), title: Text('Home'), activeColor: Colors.red),
+          BottomNavyBarItem(icon: Icon(Icons.people), title: Text('Users'), activeColor: Colors.purpleAccent),
+          BottomNavyBarItem(icon: Icon(Icons.message), title: Text('Messages'), activeColor: Colors.pink),
+          BottomNavyBarItem(icon: Icon(Icons.settings), title: Text('Settings'), activeColor: Colors.blue),
+        ],
+      ),
+    );
   }
 }
 
@@ -171,13 +293,11 @@ class WavePage extends StatelessWidget {
   }
 }
 
-
 class PinPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return PingPageState();
   }
-
 }
 
 class PingPageState extends State<PinPage> {
@@ -187,7 +307,6 @@ class PingPageState extends State<PinPage> {
 
   bool hasError = false;
   String errorMessage;
-
 
   @override
   Widget build(BuildContext context) {
@@ -216,13 +335,12 @@ class PingPageState extends State<PinPage> {
                 maxLength: pinLength,
                 hasError: hasError,
                 maskCharacter: "😎",
-
                 onTextChanged: (text) {
                   setState(() {
                     hasError = false;
                   });
                 },
-                onDone: (text){
+                onDone: (text) {
                   print("DONE $text");
                 },
                 pinCodeTextFieldLayoutType: PinCodeTextFieldLayoutType.AUTO_ADJUST_WIDTH,

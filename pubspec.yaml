@@ -36,6 +36,12 @@ dependencies:
   # pin code https://github.com/LiewJunTung/pin_code_text_field
   pin_code_text_field: ^1.4.0
 
+  # animated refresh indicator
+  liquid_pull_to_refresh: ^1.1.1
+
+  # bottom navigation bar
+  bottom_navy_bar: ^5.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
