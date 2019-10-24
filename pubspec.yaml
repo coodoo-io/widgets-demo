@@ -45,6 +45,9 @@ dependencies:
   # bottom navigation bar
   bottom_navy_bar: ^5.2.0
 
+  # circular charts
+  flutter_circular_chart: ^0.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
