@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flip_panel/flip_panel.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:scratcher/scratcher.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -94,6 +94,16 @@ class HomePage extends StatelessWidget {
               color: Colors.white,
             ),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PinPage())),
+          )),
+          Card(
+              child: ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+            title: Text("Shimmer", style: TextStyle(color: Colors.white)),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ShimmerPage())),
           )),
 
           // Liquid Pull To Refresh Indicator
@@ -290,6 +300,63 @@ class WavePage extends StatelessWidget {
             size: Size(double.infinity, double.infinity),
           ),
         ));
+  }
+}
+
+class ShimmerPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Shimmer.fromColors(
+          baseColor: Colors.white,
+          highlightColor: Colors.grey,
+          child: Text('Shimmer'),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Shimmer.fromColors(
+              baseColor: Colors.red,
+              highlightColor: Colors.yellow,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 10,
+                    width: 300,
+                    color: Colors.red,
+                  ),
+                  Text(
+                    'SHIMMER',
+                    style: TextStyle(fontSize: 60),
+                  ),
+                  Container(
+                    height: 10,
+                    width: 300,
+                    color: Colors.red,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 7),
+                    height: 10,
+                    width: 125,
+                    color: Colors.red,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 7),
+                    height: 10,
+                    width: 65,
+                    color: Colors.red,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
